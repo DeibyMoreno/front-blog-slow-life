@@ -1,0 +1,147 @@
+query Me {
+  me {
+    id
+    email
+    firstName
+    lastName
+    fullName
+    avatarUrl
+    isActive
+    role {
+      id
+      name
+    }
+  }
+}
+
+query ListUsers {
+  users {
+    id
+    email
+    firstName
+    lastName
+    fullName
+    avatarUrl
+    isActive
+    role {
+      id
+      name
+    }
+  }
+}
+
+query GetUser($id: UUID!) {
+  user(id: $id) {
+    id
+    email
+    firstName
+    lastName
+    fullName
+    avatarUrl
+    isActive
+    role {
+      id
+      name
+    }
+  }
+}
+
+query ListRoles {
+  roles {
+    id
+    name
+    description
+    permissions {
+      id
+      resource
+      action
+      description
+    }
+  }
+}
+
+query GetRole($id: UUID!) {
+  role(id: $id) {
+    id
+    name
+    description
+    permissions {
+      id
+      resource
+      action
+      description
+    }
+  }
+}
+
+mutation CreatePost($input: CreatePostInput!) {
+  createPost(input: $input) {
+    id
+    title
+    slug
+    status
+    publishedAt
+  }
+}
+
+mutation UpdatePost($id: UUID!, $input: UpdatePostInput!) {
+  updatePost(id: $id, input: $input) {
+    id
+    title
+    slug
+    status
+    publishedAt
+    updatedAt
+  }
+}
+
+mutation DeletePost($id: UUID!) {
+  deletePost(id: $id)
+}
+
+mutation CreateCategory($input: CreateCategoryInput!) {
+  createCategory(input: $input) {
+    id
+    name
+    slug
+  }
+}
+
+mutation UpdateCategory($id: UUID!, $input: UpdateCategoryInput!) {
+  updateCategory(id: $id, input: $input) {
+    id
+    name
+    slug
+  }
+}
+
+mutation DeleteCategory($id: UUID!) {
+  deleteCategory(id: $id)
+}
+
+mutation CreateTag($input: CreateTagInput!) {
+  createTag(input: $input) {
+    id
+    name
+    slug
+  }
+}
+
+mutation DeleteTag($id: UUID!) {
+  deleteTag(id: $id)
+}
+
+mutation CreateUser($input: CreateUserInput!) {
+  createUser(input: $input) {
+    id
+    email
+    fullName
+  }
+}
+
+mutation CreateRole($input: CreateRoleInput!) {
+  createRole(input: $input) {
+    id
+    name
+  }
+}

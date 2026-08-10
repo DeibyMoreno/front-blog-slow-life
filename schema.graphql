@@ -1,0 +1,209 @@
+# Schema SDL local basado en la documentación de la API `Blog Slow Life CMS`.
+# Se usa para generar los tipos con GraphQL Codegen sin depender de un backend
+# levantado. Cuando el backend esté disponible, puedes apuntar `schema` de
+# `codegen.ts` a la URL del endpoint real (`GRPHQL_API_URL`).
+
+scalar DateTime
+scalar UUID
+scalar Email
+
+enum AuthRole {
+  ADMIN
+  EDITOR
+  VIEWER
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+directive @auth(roles: [AuthRole] = []) on FIELD_DEFINITION
+
+interface Node {
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type HealthResponse {
+  status: String!
+  timestamp: DateTime!
+  version: String!
+  uptime: Float!
+}
+
+type Post implements Node {
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  slug: String!
+  content: String
+  excerpt: String
+  coverImage: String
+  gallery: [String!]
+  status: PostStatus!
+  author: User!
+  category: Category
+  tags: [Tag!]!
+  publishedAt: DateTime
+}
+
+type Category implements Node {
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  slug: String!
+  description: String
+  posts: [Post!]!
+}
+
+type Tag implements Node {
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  slug: String!
+  posts: [Post!]!
+}
+
+type User implements Node {
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  email: Email!
+  firstName: String!
+  lastName: String!
+  fullName: String!
+  avatarUrl: String
+  isActive: Boolean!
+  role: Role!
+}
+
+type Role implements Node {
+  id: UUID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  description: String
+  permissions: [Permission!]!
+}
+
+type Permission {
+  id: UUID!
+  resource: String!
+  action: String!
+  description: String
+  createdAt: DateTime!
+}
+
+type AuthPayload {
+  accessToken: String!
+  refreshToken: String!
+  user: User!
+}
+
+input CreatePostInput {
+  title: String!
+  content: String
+  excerpt: String
+  coverImage: String
+  gallery: [String!]
+  status: PostStatus = DRAFT
+  categoryId: UUID
+  tagIds: [UUID!]
+}
+
+input UpdatePostInput {
+  title: String
+  content: String
+  excerpt: String
+  coverImage: String
+  gallery: [String!]
+  status: PostStatus
+  categoryId: UUID
+  tagIds: [UUID!]
+}
+
+input CreateCategoryInput {
+  name: String!
+  description: String
+}
+
+input UpdateCategoryInput {
+  name: String
+  description: String
+}
+
+input CreateTagInput {
+  name: String!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+input RefreshTokenInput {
+  refreshToken: String!
+}
+
+input CreateUserInput {
+  email: String!
+  password: String!
+  firstName: String!
+  lastName: String!
+  roleId: UUID!
+}
+
+input CreateRoleInput {
+  name: String!
+  description: String
+  permissionIds: [UUID!]
+}
+
+type Query {
+  health: HealthResponse!
+  posts(limit: Int = 10, offset: Int = 0, status: PostStatus): [Post!]!
+  post(id: UUID): Post
+  postBySlug(slug: String!): Post
+  categories: [Category!]!
+  category(id: UUID): Category
+  tags: [Tag!]!
+  tag(id: UUID): Tag
+  tagBySlug(slug: String!): Tag
+  users: [User!]!
+  user(id: UUID): User
+  me: User! @auth
+  roles: [Role!]!
+  role(id: UUID): Role
+}
+
+type Mutation {
+  createPost(input: CreatePostInput!): Post!
+    @auth(roles: [ADMIN, EDITOR])
+  updatePost(id: UUID!, input: UpdatePostInput!): Post!
+    @auth(roles: [ADMIN, EDITOR])
+  deletePost(id: UUID!): Boolean!
+    @auth(roles: [ADMIN])
+  createCategory(input: CreateCategoryInput!): Category!
+    @auth(roles: [ADMIN, EDITOR])
+  updateCategory(id: UUID!, input: UpdateCategoryInput!): Category!
+    @auth(roles: [ADMIN, EDITOR])
+  deleteCategory(id: UUID!): Boolean!
+    @auth(roles: [ADMIN])
+  createTag(input: CreateTagInput!): Tag!
+    @auth(roles: [ADMIN, EDITOR])
+  deleteTag(id: UUID!): Boolean!
+    @auth(roles: [ADMIN])
+  login(input: LoginInput!): AuthPayload!
+  refreshToken(input: RefreshTokenInput!): AuthPayload!
+  logout: Boolean!
+  createUser(input: CreateUserInput!): User!
+    @auth(roles: [ADMIN])
+  createRole(input: CreateRoleInput!): Role!
+    @auth(roles: [ADMIN])
+}

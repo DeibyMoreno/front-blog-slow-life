@@ -1,0 +1,124 @@
+query ListPosts($limit: Int, $offset: Int, $status: PostStatus) {
+  posts(limit: $limit, offset: $offset, status: $status) {
+    id
+    title
+    slug
+    excerpt
+    coverImage
+    status
+    publishedAt
+    createdAt
+    updatedAt
+    category {
+      id
+      name
+      slug
+    }
+    author {
+      id
+      fullName
+      avatarUrl
+    }
+  }
+}
+
+query GetPostBySlug($slug: String!) {
+  postBySlug(slug: $slug) {
+    id
+    title
+    slug
+    content
+    excerpt
+    coverImage
+    gallery
+    status
+    publishedAt
+    createdAt
+    updatedAt
+    category {
+      id
+      name
+      slug
+      description
+    }
+    author {
+      id
+      fullName
+      avatarUrl
+    }
+    tags {
+      id
+      name
+      slug
+    }
+  }
+}
+
+query GetPost($id: UUID!) {
+  post(id: $id) {
+    id
+    title
+    slug
+    excerpt
+    coverImage
+    status
+    publishedAt
+    category {
+      id
+      name
+      slug
+    }
+    author {
+      id
+      fullName
+      avatarUrl
+    }
+    tags {
+      id
+      name
+      slug
+    }
+  }
+}
+
+query ListCategories {
+  categories {
+    id
+    name
+    slug
+    description
+  }
+}
+
+query GetCategory($id: UUID!) {
+  category(id: $id) {
+    id
+    name
+    slug
+    description
+  }
+}
+
+query ListTags {
+  tags {
+    id
+    name
+    slug
+  }
+}
+
+query GetTag($id: UUID!) {
+  tag(id: $id) {
+    id
+    name
+    slug
+  }
+}
+
+query GetTagBySlug($slug: String!) {
+  tagBySlug(slug: $slug) {
+    id
+    name
+    slug
+  }
+}

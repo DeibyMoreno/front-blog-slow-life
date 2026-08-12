@@ -1,10 +1,11 @@
 const mantras = [
-  "Sin prisa",
-  "Vive el presente",
+  "Voy a mi propio ritmo",
+  "Lo simple también es suficiente",
+  "Ser paciente para florecer",
   "La prisa es solo una ilusión",
-  "Vístete lento",
   "Observa el agua pasar",
-  "Respira",
+  "Hoy elijo lo simple",
+  "La calma no se negocia"
 ];
 
 function MarqueeRow({ ariaHidden = false }: { ariaHidden?: boolean }) {
@@ -15,10 +16,10 @@ function MarqueeRow({ ariaHidden = false }: { ariaHidden?: boolean }) {
     >
       {mantras.map((mantra) => (
         <span key={mantra} className="flex items-center">
-          <span className="whitespace-nowrap px-8 text-xs font-semibold uppercase tracking-[0.3em] text-terra/70">
+          <span className="whitespace-nowrap px-8 text-xs font-semibold uppercase tracking-[0.3em] text-cream">
             {mantra}
           </span>
-          <span className="size-1 rounded-full bg-terra/30" />
+          <span className="size-1 rounded-full bg-cream" />
         </span>
       ))}
     </div>
@@ -27,7 +28,7 @@ function MarqueeRow({ ariaHidden = false }: { ariaHidden?: boolean }) {
 
 export function BlogMarquee() {
   return (
-    <div className="relative overflow-hidden border-y border-linen bg-sand py-5">
+    <div className="relative overflow-hidden border-y border-linen bg-ink py-5">
       <div className="flex w-max animate-[marquee_30s_linear_infinite] motion-reduce:animate-none">
         <MarqueeRow />
         <MarqueeRow ariaHidden />

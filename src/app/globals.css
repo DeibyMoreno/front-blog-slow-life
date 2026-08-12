@@ -1,26 +1,131 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@plugin "@tailwindcss/typography";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Paleta de marca Slow Life */
+  --color-ink: #111111; /* Negro principal / texto */
+  --color-cream: #fafaf7; /* Blanco principal / fondo */
+  --color-sand: #f2efe8; /* Fondo secundario / arena clara */
+  --color-sage: #8fa58a; /* Acentos suaves / verde salvia */
+  --color-forest: #4e6b50; /* Botones destacados / verde bosque */
+  --color-terra: #8a6b4d; /* Detalles / marrón tierra */
+  --color-linen: #ddd2c2; /* Tarjetas / beige lino */
+  --color-stone: #6b6b6b; /* Texto secundario / gris piedra */
+
+  /* Semántica de tema */
+  --color-background: var(--color-cream);
+  --color-foreground: var(--color-ink);
+  --color-card: var(--color-cream);
+  --color-card-foreground: var(--color-ink);
+  --color-popover: var(--color-cream);
+  --color-popover-foreground: var(--color-ink);
+  --color-primary: var(--color-forest);
+  --color-primary-foreground: var(--color-cream);
+  --color-secondary: var(--color-sand);
+  --color-secondary-foreground: var(--color-ink);
+  --color-muted: var(--color-sand);
+  --color-muted-foreground: var(--color-stone);
+  --color-accent: var(--color-sage);
+  --color-accent-foreground: var(--color-ink);
+  --color-destructive: #a9523b;
+  --color-destructive-foreground: var(--color-cream);
+  --color-border: var(--color-linen);
+  --color-input: var(--color-linen);
+  --color-ring: var(--color-forest);
+
+  --font-sans: var(--font-body);
+  --font-display: var(--font-editorial);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer components {
+  .article-body > p:first-of-type::first-letter {
+    font-family: var(--font-editorial);
+    font-size: 4.2rem;
+    font-weight: 500;
+    line-height: 0.8;
+    float: left;
+    margin: 0.08em 0.12em 0 0;
+    color: var(--color-sage);
+  }
+
+  .about-manifesto > p:first-of-type::first-letter {
+    font-family: var(--font-editorial);
+    font-size: 3.8rem;
+    font-weight: 500;
+    line-height: 0.9;
+    float: left;
+    margin: 0.05em 0.14em 0 0;
+    color: var(--color-sage);
+  }
+}
+
+::selection {
+  background: var(--color-sage);
+  color: var(--color-ink);
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-zoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes hero-progress {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
 }

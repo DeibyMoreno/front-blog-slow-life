@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
@@ -9,9 +8,9 @@ import { SiteFooter } from "@/components/site/site-footer";
 import { ArticleBody } from "@/components/blog/article-body";
 import { SectionHeading } from "@/components/blog/article-grid";
 import { BlogCard } from "@/components/blog/blog-card";
-import { PhotoCollage } from "@/components/blog/photo-collage";
+import { HeroSlideshow } from "@/components/blog/hero-slideshow";
 import { PhotoStrip } from "@/components/blog/photo-strip";
-import { WaveDivider } from "@/components/blog/wave-divider";
+import { WaveDivider } from "@/components/site/wave-divider";
 import { getArticleBySlug, getArticles } from "@/lib/blog/api";
 import { getDummyArticleBySlug } from "@/lib/blog/dummy-data";
 import { formatDate } from "@/lib/format";
@@ -65,6 +64,11 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   );
   const nextStories = others.slice(0, 2);
 
+  const heroImages = [
+    ...(article.coverImage ? [article.coverImage] : []),
+    ...(article.gallery ?? []),
+  ].filter((image, i, all) => all.findIndex((o) => o.url === image.url) === i);
+
   return (
     <>
       <SiteHeader tone="dark" overlay />
@@ -72,13 +76,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       <article className="flex-1 bg-cream">
         {article.coverImage?.url ? (
           <header className="relative flex min-h-[70vh] items-end overflow-hidden">
-            <Image
-              src={article.coverImage.url}
-              alt={article.coverImage.alt ?? article.title}
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover"
+            <HeroSlideshow
+              images={heroImages}
+              altFallback={article.title}
             />
             <div
               aria-hidden
@@ -184,13 +184,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               </p>
             )}
           </div>
-
-          {article.gallery && article.gallery.length > 0 ? (
-            <PhotoCollage
-              images={article.gallery}
-              altFallback={article.title}
-            />
-          ) : null}
 
           {article.tags && article.tags.length > 0 ? (
             <div className="mt-12 flex flex-wrap items-center gap-2">

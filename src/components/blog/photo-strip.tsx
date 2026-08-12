@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import type { ImageRef } from "@/lib/blog/types";
+import { Reveal, MOTION_STAGGER_S } from "@/components/ui/reveal";
 
 interface PhotoStripProps {
   images: ImageRef[];
@@ -22,18 +23,21 @@ export function PhotoStrip({ images, altFallback }: PhotoStripProps) {
 
       <div className="mt-8 flex gap-4 overflow-x-auto pb-2 sm:flex-wrap sm:justify-center sm:overflow-visible">
         {images.map((image, i) => (
-          <div
+          <Reveal
             key={`${image.url}-${i}`}
-            className="relative aspect-4/3 w-40 shrink-0 overflow-hidden rounded-lg border border-linen bg-sand sm:w-44"
+            delay={MOTION_STAGGER_S * i}
+            amount={0.5}
           >
-            <Image
-              src={image.url}
-              alt={image.alt ?? altFallback}
-              fill
-              sizes="(min-width: 640px) 176px, 160px"
-              className="object-cover"
-            />
-          </div>
+            <div className="relative aspect-4/3 w-40 shrink-0 overflow-hidden rounded-lg border border-linen bg-sand sm:w-44">
+              <Image
+                src={image.url}
+                alt={image.alt ?? altFallback}
+                fill
+                sizes="(min-width: 640px) 176px, 160px"
+                className="object-cover"
+              />
+            </div>
+          </Reveal>
         ))}
       </div>
     </section>

@@ -3,15 +3,15 @@ import type { Metadata } from "next";
 import { EmptyState } from "@/components/admin/empty-state";
 
 export const metadata: Metadata = {
-  title: "Resumen",
+  title: "Usuarios",
   robots: { index: false, follow: false },
 };
 
-export default function AdminSummaryPage() {
+export default function AdminUsersPage() {
   return (
     <EmptyState
-      title="Resumen"
-      description="Vista general del blog: actividad, publicaciones y accesos rápidos."
+      title="Usuarios"
+      description="Gestiona el equipo que publica en el blog."
     />
   );
 }

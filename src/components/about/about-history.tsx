@@ -1,9 +1,11 @@
+import { Reveal } from "@/components/ui/reveal";
+
 export function AboutHistory() {
   return (
     <section className="bg-cream">
       <div className="mx-auto w-full max-w-6xl px-5 pb-24 sm:px-8">
         <div className="rounded-2xl border-2 border-dashed border-linen bg-cream p-8 sm:p-12">
-          <div className="max-w-2xl">
+          <Reveal className="max-w-2xl">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-terra">
               Nuestra historia · Para completar
             </p>
@@ -30,7 +32,7 @@ export function AboutHistory() {
                 consumir.
               </p>
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

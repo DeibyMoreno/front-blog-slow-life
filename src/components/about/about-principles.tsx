@@ -1,3 +1,5 @@
+import { Reveal, MOTION_STAGGER_S } from "@/components/ui/reveal";
+
 const principles = [
   {
     title: "Sin prisa",
@@ -36,24 +38,26 @@ export function AboutPrinciples() {
 
         <ol className="divide-y divide-linen">
           {principles.map((principle, index) => (
-            <li
-              key={principle.title}
-              className="grid gap-4 py-8 sm:grid-cols-[5rem_1fr] sm:gap-8"
-            >
-              <span
-                aria-hidden
-                className="font-display text-4xl italic tracking-tight text-terra/80 sm:text-5xl"
+            <li key={principle.title}>
+              <Reveal
+                delay={MOTION_STAGGER_S * index}
+                className="grid gap-4 py-8 sm:grid-cols-[5rem_1fr] sm:gap-8"
               >
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <div>
-                <h3 className="font-display text-2xl tracking-tight text-ink sm:text-3xl">
-                  {principle.title}
-                </h3>
-                <p className="mt-2 max-w-xl text-sm leading-relaxed text-stone sm:text-base">
-                  {principle.text}
-                </p>
-              </div>
+                <span
+                  aria-hidden
+                  className="font-display text-4xl italic tracking-tight text-terra/80 sm:text-5xl"
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <h3 className="font-display text-2xl tracking-tight text-ink sm:text-3xl">
+                    {principle.title}
+                  </h3>
+                  <p className="mt-2 max-w-xl text-sm leading-relaxed text-stone sm:text-base">
+                    {principle.text}
+                  </p>
+                </div>
+              </Reveal>
             </li>
           ))}
         </ol>

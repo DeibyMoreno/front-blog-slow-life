@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
+import { Reveal, MOTION_STAGGER_S } from "@/components/ui/reveal";
+
 const pillars = [
   {
     title: "Ensayos",
@@ -30,23 +32,24 @@ export function AboutPillars() {
         </div>
 
         <div className="grid gap-6 md:grid-cols-3">
-          {pillars.map((pillar) => (
-            <Link
-              key={pillar.title}
-              href="/blog"
-              className="group rounded-2xl border border-linen bg-sand p-8 transition-colors hover:border-forest/40 hover:bg-cream"
-            >
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-terra">
-                {pillar.title}
-              </p>
-              <p className="mt-3 text-sm leading-relaxed text-stone">
-                {pillar.text}
-              </p>
-              <span className="mt-6 inline-flex items-center gap-2 border-b border-ink/40 pb-1 text-xs font-semibold uppercase tracking-[0.2em] text-ink transition-colors group-hover:border-forest group-hover:text-forest">
-                Leer el blog
-                <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </span>
-            </Link>
+          {pillars.map((pillar, index) => (
+            <Reveal key={pillar.title} delay={MOTION_STAGGER_S * index}>
+              <Link
+                href="/blog"
+                className="group flex h-full flex-col rounded-2xl border border-linen bg-sand p-8 transition-colors hover:border-forest/40 hover:bg-cream"
+              >
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-terra">
+                  {pillar.title}
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-stone">
+                  {pillar.text}
+                </p>
+                <span className="mt-6 inline-flex items-center gap-2 border-b border-ink/40 pb-1 text-xs font-semibold uppercase tracking-[0.2em] text-ink transition-colors group-hover:border-forest group-hover:text-forest">
+                  Leer el blog
+                  <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
+                </span>
+              </Link>
+            </Reveal>
           ))}
         </div>
       </div>

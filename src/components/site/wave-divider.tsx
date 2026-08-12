@@ -1,61 +1,36 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 
-import { cn } from "@/lib/utils";
+import { motion, useInView, useReducedMotion } from "motion/react";
 
 interface WaveDividerProps {
   className?: string;
 }
 
-function useInView<T extends Element>(threshold = 0.25) {
-  const ref = useRef<T>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.disconnect();
-        }
-      },
-      { threshold }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [threshold]);
-
-  return { ref, inView };
-}
-
 export function WaveDivider({ className }: WaveDividerProps) {
-  const { ref: dividerRef, inView: dividerInView } = useInView<HTMLDivElement>();
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.3 });
+  const reduce = useReducedMotion();
 
   return (
-    <div ref={dividerRef}>
+    <div ref={ref}>
       <svg
         aria-hidden
-        className={`h-5 w-48 text-terra/60 ${className}`}
+        className={`h-5 w-50 text-terra/60 ${className}`}
         viewBox="0 0 192 20"
         fill="none"
         stroke="currentColor"
         strokeWidth="2"
       >
-        <path
-          pathLength={1}
+        <motion.path
           d="M2 10c16-8 32-8 48 0s32 8 48 0 32-8 48 0"
           strokeLinecap="round"
-          className={cn(
-            "[stroke-dasharray:1] transition-[stroke-dashoffset] duration-2000 ease-out motion-reduce:transition-none",
-            dividerInView
-              ? "[stroke-dashoffset:0]"
-              : "[stroke-dashoffset:1]"
-          )}
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: inView || reduce ? 1 : 0 }}
+          transition={
+            reduce ? { duration: 0 } : { duration: 2, ease: "easeOut" }
+          }
         />
       </svg>
     </div>

@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 
+import { Reveal, MOTION_STAGGER_S } from "@/components/ui/reveal";
+
 export function SectionHeading({
   eyebrow,
   title,
@@ -11,13 +13,20 @@ export function SectionHeading({
     <div className="mb-10 flex items-end justify-between gap-6">
       <div>
         {eyebrow ? (
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-terra">
+          <Reveal
+            as="p"
+            className="text-xs font-semibold uppercase tracking-[0.18em] text-terra"
+          >
             {eyebrow}
-          </p>
+          </Reveal>
         ) : null}
-        <h2 className="mt-2 font-display text-3xl tracking-tight text-ink sm:text-4xl">
+        <Reveal
+          as="h2"
+          delay={MOTION_STAGGER_S}
+          className="mt-2 font-display text-3xl tracking-tight text-ink sm:text-4xl"
+        >
           {title}
-        </h2>
+        </Reveal>
       </div>
     </div>
   );

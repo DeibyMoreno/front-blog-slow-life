@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 import type { Article } from "@/lib/blog/types";
 import { formatDate } from "@/lib/format";
+import { Reveal } from "@/components/ui/reveal";
 
 interface FeaturedStoryProps {
   article: Article;
@@ -13,7 +14,7 @@ export function FeaturedStory({ article }: FeaturedStoryProps) {
   return (
     <section className="bg-cream">
       <div className="mx-auto w-full max-w-6xl px-5 pt-20 sm:px-8 sm:pt-24">
-        <div className="group grid overflow-hidden rounded-2xl border border-linen bg-sand lg:grid-cols-2">
+        <Reveal className="group grid overflow-hidden rounded-2xl border border-linen bg-sand lg:grid-cols-2">
           <Link
             href={`/blog/${article.slug}`}
             className="relative aspect-4/3 overflow-hidden bg-sand lg:aspect-auto"
@@ -69,7 +70,7 @@ export function FeaturedStory({ article }: FeaturedStoryProps) {
               <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

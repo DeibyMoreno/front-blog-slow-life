@@ -1,8 +1,19 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 
+import { motion } from "motion/react";
+
 import type { Article } from "@/lib/blog/types";
 import { formatDate } from "@/lib/format";
+
+const CARD_HOVER_SCALE = 1.04;
+const CARD_HOVER_SPRING = {
+  type: "spring",
+  stiffness: 300,
+  damping: 20,
+} as const;
 
 interface BlogCardProps {
   article: Article;
@@ -14,13 +25,20 @@ export function BlogCard({ article }: BlogCardProps) {
       <Link href={`/blog/${article.slug}`} className="block">
         <div className="relative aspect-4/3 overflow-hidden rounded-xl bg-sand ring-1 ring-linen">
           {article.coverImage ? (
-            <Image
-              src={article.coverImage.url}
-              alt={article.coverImage.alt ?? article.title}
-              fill
-              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-              className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-            />
+            <motion.div
+              initial={false}
+              whileHover={{ scale: CARD_HOVER_SCALE }}
+              transition={CARD_HOVER_SPRING}
+              className="absolute inset-0"
+            >
+              <Image
+                src={article.coverImage.url}
+                alt={article.coverImage.alt ?? article.title}
+                fill
+                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                className="object-cover"
+              />
+            </motion.div>
           ) : null}
         </div>
 

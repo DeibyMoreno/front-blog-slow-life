@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Menu, User, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
 import { Logo } from "@/components/site/logo";
 import { Button } from "@/components/ui/button";
@@ -27,6 +28,7 @@ export function SiteHeader({
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -120,36 +122,47 @@ export function SiteHeader({
           </div>
         </div>
 
-        {open && (
-          <nav
-            className={cn(
-              "border-t px-5 pb-6 pt-2 md:hidden",
-              dark ? "border-white/10 bg-ink" : "border-linen/70 bg-cream"
-            )}
-          >
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className={cn(
-                  "block border-b py-3.5 font-display text-xl",
-                  dark
-                    ? "border-white/10 text-cream"
-                    : "border-linen/60 text-ink"
-                )}
-              >
-                {item.label}
-              </Link>
-            ))}
-            <Button
-              className="mt-4 w-full"
-              render={<Link href="/login" />}
+        <AnimatePresence>
+          {open && (
+            <motion.nav
+              key="mobile-menu"
+              initial={shouldReduceMotion ? false : { opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={
+                shouldReduceMotion
+                  ? { opacity: 0 }
+                  : { opacity: 0, height: 0, transition: { duration: 0.25 } }
+              }
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className={cn(
+                "overflow-hidden border-t px-5 pb-6 pt-2 md:hidden",
+                dark ? "border-white/10 bg-ink" : "border-linen/70 bg-cream"
+              )}
             >
-              Entrar
-            </Button>
-          </nav>
-        )}
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    "block border-b py-3.5 font-display text-xl",
+                    dark
+                      ? "border-white/10 text-cream"
+                      : "border-linen/60 text-ink"
+                  )}
+                >
+                  {item.label}
+                </Link>
+              ))}
+              <Button
+                className="mt-4 w-full"
+                render={<Link href="/login" />}
+              >
+                Entrar
+              </Button>
+            </motion.nav>
+          )}
+        </AnimatePresence>
       </header>
 
       {!overlay && <div aria-hidden className="h-16" />}

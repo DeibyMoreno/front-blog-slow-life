@@ -1,11 +1,12 @@
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
+import { Reveal } from "@/components/ui/reveal";
 
 export function AboutCta() {
   return (
     <section className="border-t border-linen bg-sand">
-      <div className="mx-auto flex max-w-6xl flex-col items-center gap-8 px-5 py-20 text-center sm:px-8">
+      <Reveal className="mx-auto flex max-w-6xl flex-col items-center gap-8 px-5 py-20 text-center sm:px-8">
         <p className="text-xs font-semibold uppercase tracking-[0.24em] text-terra">
           La carta lenta
         </p>
@@ -26,7 +27,7 @@ export function AboutCta() {
           </Button>
           <Button render={<Link href="/blog" />}>Leer el blog</Button>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

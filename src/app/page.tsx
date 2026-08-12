@@ -8,6 +8,7 @@ import { BlogCard } from "@/components/blog/blog-card";
 import { FeaturedStory } from "@/components/blog/featured-story";
 import { BlogMarquee } from "@/components/blog/blog-marquee";
 import { WaveDivider } from "@/components/site/wave-divider";
+import { Reveal, MOTION_STAGGER_S } from "@/components/ui/reveal";
 
 export const revalidate = 3600;
 
@@ -51,15 +52,17 @@ export default async function HomePage() {
           <section className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8">
             <SectionHeading eyebrow="Lo último" title="Artículos recientes" />
             <ArticleGrid>
-              {remaining.map((article) => (
-                <BlogCard key={article.id} article={article} />
+              {remaining.map((article, index) => (
+                <Reveal key={article.id} delay={MOTION_STAGGER_S * index}>
+                  <BlogCard article={article} />
+                </Reveal>
               ))}
             </ArticleGrid>
           </section>
         ) : null}
 
         <section className="border-t border-linen bg-sand">
-          <div className="mx-auto flex max-w-6xl flex-col items-center gap-8 px-5 py-20 text-center sm:px-8">
+          <Reveal className="mx-auto flex max-w-6xl flex-col items-center gap-8 px-5 py-20 text-center sm:px-8">
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-terra">
               La carta lenta
             </p>
@@ -77,7 +80,7 @@ export default async function HomePage() {
             >
               Unirme a la carta
             </Button>
-          </div>
+          </Reveal>
         </section>
       </main>
 

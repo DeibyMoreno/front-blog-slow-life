@@ -11,6 +11,7 @@ import { BlogCard } from "@/components/blog/blog-card";
 import { HeroSlideshow } from "@/components/blog/hero-slideshow";
 import { PhotoStrip } from "@/components/blog/photo-strip";
 import { WaveDivider } from "@/components/site/wave-divider";
+import { Reveal, MOTION_STAGGER_S } from "@/components/ui/reveal";
 import { getArticleBySlug, getArticles } from "@/lib/blog/api";
 import { getDummyArticleBySlug } from "@/lib/blog/dummy-data";
 import { formatDate } from "@/lib/format";
@@ -236,8 +237,10 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 title="Otra historia, sin prisa"
               />
               <div className="grid gap-x-8 gap-y-14 sm:grid-cols-2">
-                {nextStories.map((item) => (
-                  <BlogCard key={item.id} article={item} />
+                {nextStories.map((item, index) => (
+                  <Reveal key={item.id} delay={MOTION_STAGGER_S * index}>
+                    <BlogCard article={item} />
+                  </Reveal>
                 ))}
               </div>
             </div>

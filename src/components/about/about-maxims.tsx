@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
+
+import { MotionConfig, motion, useInView, useReducedMotion } from "motion/react";
 
 import { WaveDivider } from "@/components/site/wave-divider";
-import { cn } from "@/lib/utils";
 
 interface Maxim {
   segments: { text: string; accent?: boolean }[];
@@ -50,32 +51,16 @@ const maxims: Maxim[] = [
   },
 ];
 
-function useInView<T extends HTMLElement>(threshold = 0.25) {
-  const ref = useRef<T>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.disconnect();
-        }
-      },
-      { threshold }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [threshold]);
-
-  return { ref, inView };
-}
-
 function Clover({ inView }: { inView: boolean }) {
+  const reduce = useReducedMotion();
+  const drawn = (delay: number) => ({
+    initial: { pathLength: 0 },
+    animate: { pathLength: inView || reduce ? 1 : 0 },
+    transition: reduce
+      ? { duration: 0 }
+      : { duration: 0.7, ease: "easeOut" as const, delay },
+  });
+
   return (
     <svg
       aria-hidden
@@ -87,71 +72,45 @@ function Clover({ inView }: { inView: boolean }) {
       strokeLinejoin="round"
       className="size-9 text-sage"
     >
-      <path
-        pathLength={1}
-        d="M12 25V20.3"
-        className={cn(
-          "[stroke-dasharray:1] transition-[stroke-dashoffset] duration-700 ease-out motion-reduce:transition-none",
-          inView ? "[stroke-dashoffset:0]" : "[stroke-dashoffset:1]"
-        )}
-      />
-      <path
-        pathLength={1}
+      <motion.path d="M12 25V20.3" {...drawn(0)} />
+      <motion.path
         d="M12 10L8.603 6.56a2.104 2.104 0 0 1 0-2.95a2.04 2.04 0 0 1 2.912 0L12 4l.485-.39a2.04 2.04 0 0 1 2.912 0a2.104 2.104 0 0 1 0 2.95z"
-        className={cn(
-          "[stroke-dasharray:1] transition-[stroke-dashoffset] delay-300 duration-700 ease-out motion-reduce:transition-none",
-          inView ? "[stroke-dashoffset:0]" : "[stroke-dashoffset:1]"
-        )}
+        {...drawn(0.3)}
       />
-      <path
-        pathLength={1}
+      <motion.path
         d="M14 12l3.44-3.397a2.104 2.104 0 0 1 2.95 0a2.04 2.04 0 0 1 0 2.912L20 12l.39.485a2.04 2.04 0 0 1 0 2.912a2.104 2.104 0 0 1-2.95 0z"
-        className={cn(
-          "[stroke-dasharray:1] transition-[stroke-dashoffset] delay-500 duration-700 ease-out motion-reduce:transition-none",
-          inView ? "[stroke-dashoffset:0]" : "[stroke-dashoffset:1]"
-        )}
+        {...drawn(0.5)}
       />
-      <path
-        pathLength={1}
+      <motion.path
         d="M12 14l-3.397 3.44a2.104 2.104 0 0 0 0 2.95a2.04 2.04 0 0 0 2.912 0L12 20l.485.39a2.04 2.04 0 0 0 2.912 0a2.104 2.104 0 0 0 0-2.95z"
-        className={cn(
-          "[stroke-dasharray:1] transition-[stroke-dashoffset] delay-700 duration-700 ease-out motion-reduce:transition-none",
-          inView ? "[stroke-dashoffset:0]" : "[stroke-dashoffset:1]"
-        )}
+        {...drawn(0.7)}
       />
-      <path
-        pathLength={1}
+      <motion.path
         d="M10 12L6.56 8.603a2.104 2.104 0 0 0-2.95 0a2.04 2.04 0 0 0 0 2.912L4 12l-.39.485a2.04 2.04 0 0 0 0 2.912a2.104 2.104 0 0 0 2.95 0z"
-        className={cn(
-          "[stroke-dasharray:1] transition-[stroke-dashoffset] delay-900 duration-700 ease-out motion-reduce:transition-none",
-          inView ? "[stroke-dashoffset:0]" : "[stroke-dashoffset:1]"
-        )}
+        {...drawn(0.9)}
       />
     </svg>
   );
 }
 
 function MaximRow({ maxim }: { maxim: Maxim }) {
-  const { ref, inView } = useInView<HTMLDivElement>();
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.3 });
 
   return (
     <div
       ref={ref}
       className="grid gap-6 py-14 sm:py-16 lg:grid-cols-[3rem_1fr] lg:gap-12"
     >
-      <div
-        className={cn(
-          "flex justify-start",
-        )}
-      >
+      <div className="flex justify-start">
         <Clover inView={inView} />
       </div>
 
-      <blockquote
-        className={cn(
-          "max-w-4xl transition-all duration-700 ease-out motion-reduce:transition-none",
-          inView ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
-        )}
+      <motion.blockquote
+        initial={{ opacity: 0, y: 20 }}
+        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        className="max-w-4xl"
       >
         <p className="font-display text-2xl leading-tight tracking-tight text-ink sm:text-2xl lg:text-3xl">
           {maxim.segments.map((segment) =>
@@ -164,7 +123,7 @@ function MaximRow({ maxim }: { maxim: Maxim }) {
             )
           )}
         </p>
-      </blockquote>
+      </motion.blockquote>
     </div>
   );
 }
@@ -181,11 +140,13 @@ export function AboutMaxims() {
 
         <WaveDivider />
 
-        <div className="mt-6 divide-y divide-linen">
-          {maxims.map((maxim, index) => (
-            <MaximRow key={index} maxim={maxim} />
-          ))}
-        </div>
+        <MotionConfig reducedMotion="user">
+          <div className="mt-6 divide-y divide-linen">
+            {maxims.map((maxim, index) => (
+              <MaximRow key={index} maxim={maxim} />
+            ))}
+          </div>
+        </MotionConfig>
       </div>
     </section>
   );

@@ -1,8 +1,13 @@
+import { Reveal } from "@/components/ui/reveal";
+
 export function AboutManifesto() {
   return (
     <section className="bg-cream">
       <div className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8">
-        <div className="about-manifesto mx-auto max-w-3xl font-display text-xl leading-[1.7] tracking-tight text-ink sm:text-2xl">
+        <Reveal
+          as="div"
+          className="about-manifesto mx-auto max-w-3xl font-display text-xl leading-[1.7] tracking-tight text-ink sm:text-2xl"
+        >
           <p>
             Slow Life es un estilo de vida que celebra la belleza de lo simple.
           </p>
@@ -21,7 +26,7 @@ export function AboutManifesto() {
             Slow Life es la elección perfecta para quienes buscan vivir la vida
             a su propio ritmo.
           </p>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

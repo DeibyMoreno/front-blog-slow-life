@@ -1,4 +1,5 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Reveal, MOTION_STAGGER_S } from "@/components/ui/reveal";
 
 const team = [
   {
@@ -33,23 +34,22 @@ export function AboutTeam() {
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {team.map((member) => (
-              <div
-                key={member.role}
-                className="flex items-center gap-4 rounded-2xl border border-linen bg-sand p-6"
-              >
-                <Avatar size="lg" className="bg-linen text-terra">
-                  <AvatarFallback>{member.initials}</AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="font-display text-lg tracking-tight text-ink">
-                    {member.name}
-                  </p>
-                  <p className="mt-0.5 text-xs font-semibold uppercase tracking-[0.16em] text-stone">
-                    {member.role}
-                  </p>
+            {team.map((member, index) => (
+              <Reveal key={member.role} delay={MOTION_STAGGER_S * index}>
+                <div className="flex h-full items-center gap-4 rounded-2xl border border-linen bg-sand p-6">
+                  <Avatar size="lg" className="bg-linen text-terra">
+                    <AvatarFallback>{member.initials}</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="font-display text-lg tracking-tight text-ink">
+                      {member.name}
+                    </p>
+                    <p className="mt-0.5 text-xs font-semibold uppercase tracking-[0.16em] text-stone">
+                      {member.role}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
 

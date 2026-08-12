@@ -12,8 +12,8 @@ const principles = [
     text: "Menos prendas, mejores materiales, más intención.",
   },
   {
-    title: "Observa el agua pasar",
-    text: "El río enseña que la prisa es solo una ilusión.",
+    title: "Reconecta",
+    text: "Con la naturaleza, los amigos, la familia: lo que de verdad importa.",
   },
   {
     title: "Respira",

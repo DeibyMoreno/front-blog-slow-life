@@ -4,14 +4,22 @@ export function AboutManifesto() {
       <div className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8">
         <div className="about-manifesto mx-auto max-w-3xl font-display text-xl leading-[1.7] tracking-tight text-ink sm:text-2xl">
           <p>
-            Slow Life es un diario sobre moda lenta: materiales con criterio,
-            oficios que se toman su tiempo y un vestir más consciente. Creemos
-            que elegir bien vale más que elegir mucho.
+            Slow Life es un estilo de vida que celebra la belleza de lo simple.
           </p>
           <p className="mt-8">
-            Por eso hacemos las cosas a la velocidad adecuada: escribimos sin
-            prisa, observamos cómo pasa el agua y recordamos que la prisa es
-            solo una ilusión.
+            Se trata de desconectar el ritmo acelerado de la ciudad y
+            reconectar con lo que realmente importa: la naturaleza, los amigos
+            y la familia.
+          </p>
+          <p className="mt-8">
+            Nuestra ropa refleja este espíritu, diseñada para que te sientas
+            cómodo y relajado mientras disfrutas de los momentos que valen la
+            pena. Desde un paseo por el bosque hasta una tarde con amigos en el
+            parque.
+          </p>
+          <p className="mt-8">
+            Slow Life es la elección perfecta para quienes buscan vivir la vida
+            a su propio ritmo.
           </p>
         </div>
       </div>

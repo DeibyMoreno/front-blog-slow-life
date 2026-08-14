@@ -15,7 +15,7 @@ export const { getClient, query, PreloadQuery } = registerApolloClient(() => {
     link: new HttpLink({
       uri,
       fetchOptions: {
-        cache: "force-cache",
+        cache: "no-store",
       },
     }),
   });

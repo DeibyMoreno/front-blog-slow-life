@@ -21,7 +21,7 @@ export function FeaturedStory({ article }: FeaturedStoryProps) {
           >
             {article.coverImage ? (
               <Image
-                src={article.coverImage.url}
+                src={article.coverImage.url.replace("https:/", "")}
                 alt={article.coverImage.alt ?? article.title}
                 fill
                 priority

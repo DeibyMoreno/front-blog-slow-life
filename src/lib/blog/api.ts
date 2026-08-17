@@ -3,7 +3,6 @@ import "server-only";
 import { GetPostBySlugDocument, ListPostsDocument } from "@/gql/graphql";
 import { query } from "@/lib/apollo/server";
 import type { Article, ArticleDetail } from "@/lib/blog/types";
-import { DUMMY_ARTICLES } from "./dummy-data";
 
 const REVALIDATE_SECONDS = 900;
 
@@ -56,8 +55,6 @@ export async function getArticles(limit = 12): Promise<Article[]> {
       },
     });
 
-    return DUMMY_ARTICLES;
-
     if (!data) return [];
 
     return data.posts.map(mapPostToArticle);
@@ -87,7 +84,7 @@ export async function getArticleBySlug(
     return {
       ...base,
       body: post.content ?? "",
-      gallery: (post.gallery ?? []).map((url) => ({ url })),
+      // gallery: (post.gallery ?? []).map((url) => ({ url })),
       tags: post.tags.map((t) => ({ slug: t.slug, name: t.name })),
     };
   } catch (error) {

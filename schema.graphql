@@ -43,7 +43,6 @@ type Post implements Node {
   content: String
   excerpt: String
   coverImage: String
-  gallery: [String!]
   status: PostStatus!
   author: User!
   category: Category
@@ -111,7 +110,6 @@ input CreatePostInput {
   content: String
   excerpt: String
   coverImage: String
-  gallery: [String!]
   status: PostStatus = DRAFT
   categoryId: UUID
   tagIds: [UUID!]
@@ -122,7 +120,6 @@ input UpdatePostInput {
   content: String
   excerpt: String
   coverImage: String
-  gallery: [String!]
   status: PostStatus
   categoryId: UUID
   tagIds: [UUID!]
@@ -183,27 +180,20 @@ type Query {
 }
 
 type Mutation {
-  createPost(input: CreatePostInput!): Post!
-    @auth(roles: [ADMIN, EDITOR])
+  createPost(input: CreatePostInput!): Post! @auth(roles: [ADMIN, EDITOR])
   updatePost(id: UUID!, input: UpdatePostInput!): Post!
     @auth(roles: [ADMIN, EDITOR])
-  deletePost(id: UUID!): Boolean!
-    @auth(roles: [ADMIN])
+  deletePost(id: UUID!): Boolean! @auth(roles: [ADMIN])
   createCategory(input: CreateCategoryInput!): Category!
     @auth(roles: [ADMIN, EDITOR])
   updateCategory(id: UUID!, input: UpdateCategoryInput!): Category!
     @auth(roles: [ADMIN, EDITOR])
-  deleteCategory(id: UUID!): Boolean!
-    @auth(roles: [ADMIN])
-  createTag(input: CreateTagInput!): Tag!
-    @auth(roles: [ADMIN, EDITOR])
-  deleteTag(id: UUID!): Boolean!
-    @auth(roles: [ADMIN])
+  deleteCategory(id: UUID!): Boolean! @auth(roles: [ADMIN])
+  createTag(input: CreateTagInput!): Tag! @auth(roles: [ADMIN, EDITOR])
+  deleteTag(id: UUID!): Boolean! @auth(roles: [ADMIN])
   login(input: LoginInput!): AuthPayload!
   refreshToken(input: RefreshTokenInput!): AuthPayload!
   logout: Boolean!
-  createUser(input: CreateUserInput!): User!
-    @auth(roles: [ADMIN])
-  createRole(input: CreateRoleInput!): Role!
-    @auth(roles: [ADMIN])
+  createUser(input: CreateUserInput!): User! @auth(roles: [ADMIN])
+  createRole(input: CreateRoleInput!): Role! @auth(roles: [ADMIN])
 }

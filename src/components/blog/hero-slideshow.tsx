@@ -58,7 +58,7 @@ export function HeroSlideshow({ images, altFallback }: HeroSlideshowProps) {
   if (count === 1) {
     return (
       <Image
-        src={images[0].url}
+        src={images[0].url.replace("https:/", "")}
         alt={images[0].alt ?? altFallback}
         fill
         priority
@@ -84,17 +84,16 @@ export function HeroSlideshow({ images, altFallback }: HeroSlideshowProps) {
       {images.map((image, i) => (
         <Image
           key={`${image.url}-${i}`}
-          src={image.url}
+          src={image.url.replace("https:/", "")}
           alt={image.alt ?? altFallback}
           fill
           priority={i === 0}
           sizes="100vw"
           aria-hidden={i !== index}
-          className={`object-cover ${
-            i === index
-              ? "opacity-100"
-              : "pointer-events-none opacity-0"
-          } ${isAutoplaying && i === index ? "animate-[hero-zoom_6s_ease-out_forwards]" : ""}`}
+          className={`object-cover ${i === index
+            ? "opacity-100"
+            : "pointer-events-none opacity-0"
+            } ${isAutoplaying && i === index ? "animate-[hero-zoom_6s_ease-out_forwards]" : ""}`}
           style={{ transition: `opacity ${CROSSFADE_MS}ms ease-in-out` }}
         />
       ))}

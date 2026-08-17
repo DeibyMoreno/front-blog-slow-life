@@ -30,7 +30,6 @@ query GetPostBySlug($slug: String!) {
     content
     excerpt
     coverImage
-    gallery
     status
     publishedAt
     createdAt

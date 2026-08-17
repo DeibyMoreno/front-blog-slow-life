@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/sonner";
 import { Sidebar } from "@/components/admin/sidebar";
 
 export default function AdminLayout({
@@ -13,6 +14,7 @@ export default function AdminLayout({
           {children}
         </div>
       </main>
+      <Toaster position="bottom-right" />
     </div>
   );
 }

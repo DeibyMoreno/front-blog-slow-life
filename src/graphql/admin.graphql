@@ -74,6 +74,28 @@ query GetRole($id: UUID!) {
   }
 }
 
+query GetAdminPost($id: UUID!) {
+  post(id: $id) {
+    id
+    title
+    slug
+    content
+    excerpt
+    coverImage
+    status
+    publishedAt
+    updatedAt
+    category {
+      id
+      name
+    }
+    tags {
+      id
+      name
+    }
+  }
+}
+
 mutation CreatePost($input: CreatePostInput!) {
   createPost(input: $input) {
     id

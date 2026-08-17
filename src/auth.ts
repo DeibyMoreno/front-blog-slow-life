@@ -10,6 +10,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   },
   providers: [
     Credentials({
+      name: "Credentials",
       credentials: {
         email: { label: "Email", type: "email" },
         password: { label: "Contraseña", type: "password" },
@@ -20,7 +21,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
         if (!email || !password) return null;
 
-        return authenticate(email, password);
+        const res = await authenticate(email, password);
+        if (!res) return null;
+
+        return res;
       },
     }),
   ],

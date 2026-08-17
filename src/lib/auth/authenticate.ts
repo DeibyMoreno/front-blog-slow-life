@@ -42,7 +42,6 @@ export async function authenticate(
       refreshToken: login.refreshToken,
     };
   } catch {
-    // Credenciales inválidas o backend no disponible: no exponer detalles.
     return null;
   }
 }

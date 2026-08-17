@@ -11,7 +11,10 @@ import { Label } from "@/components/ui/label";
 export function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") ?? "/admin";
+  const callbackUrlParam = searchParams.get("callbackUrl") ?? "/admin";
+  const callbackUrl = callbackUrlParam.startsWith("/")
+    ? callbackUrlParam
+    : "/admin";
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -35,7 +38,7 @@ export function LoginForm() {
       return;
     }
 
-    router.push(callbackUrl);
+    router.replace(callbackUrl);
     router.refresh();
   }
 

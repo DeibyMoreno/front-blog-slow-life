@@ -86,8 +86,6 @@ export function BlogFeed({ articles }: BlogFeedProps) {
       : articles.filter((article) => article.category.slug === active);
 
 
-  console.log({ filtered });
-
   return (
     <section className="bg-cream">
       <div className="mx-auto w-full max-w-6xl px-5 py-20 sm:px-8 sm:py-24">

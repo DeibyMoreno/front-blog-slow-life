@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { CoverImageUploader } from "./cover-image-uploader";
 import {
   createPost,
   updatePost,
@@ -156,19 +157,14 @@ export function PostForm({ post, categories, tags }: PostFormProps) {
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
               <FieldLabel htmlFor={field.name}>Imagen de portada</FieldLabel>
-              <Input
-                {...field}
-                id={field.name}
-                aria-invalid={fieldState.invalid}
-                placeholder="https://…/portada.jpg"
-                autoComplete="off"
+              <CoverImageUploader
+                value={field.value}
+                onChange={field.onChange}
               />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}
         />
-
-
       </FieldGroup>
 
       <FieldGroup>

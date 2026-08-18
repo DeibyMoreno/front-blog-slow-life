@@ -105,8 +105,6 @@ export async function updatePost(
     return { ok: false, error: "Datos del artículo no válidos." };
   }
 
-  console.log(toUpdateInput(parsed.data));
-
   try {
     await getClient().mutate({
       mutation: UpdatePostDocument,

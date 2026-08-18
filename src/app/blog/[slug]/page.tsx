@@ -13,7 +13,7 @@ import { PhotoStrip } from "@/components/blog/photo-strip";
 import { WaveDivider } from "@/components/site/wave-divider";
 import { Reveal, MOTION_STAGGER_S } from "@/components/ui/reveal";
 import { getArticleBySlug, getArticles } from "@/lib/blog/api";
-import { getDummyArticleBySlug } from "@/lib/blog/dummy-data";
+// import { getDummyArticleBySlug } from "@/lib/blog/dummy-data";
 import { formatDate } from "@/lib/format";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
@@ -29,7 +29,7 @@ export async function generateMetadata({
 }: ArticlePageProps): Promise<Metadata> {
   const { slug } = await params;
   const article =
-    (await getArticleBySlug(slug)) ?? getDummyArticleBySlug(slug);
+    (await getArticleBySlug(slug)) ?? undefined;
 
   if (!article) return {};
 
@@ -50,7 +50,7 @@ export async function generateMetadata({
 export default async function ArticlePage({ params }: ArticlePageProps) {
   const { slug } = await params;
   const article =
-    (await getArticleBySlug(slug)) ?? getDummyArticleBySlug(slug);
+    (await getArticleBySlug(slug)) ?? undefined;
 
   if (!article) notFound();
 
@@ -70,13 +70,14 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     ...(article.gallery ?? []),
   ].filter((image, i, all) => all.findIndex((o) => o.url === image.url) === i);
 
+
   return (
     <>
       <SiteHeader tone="dark" overlay />
 
       <article className="flex-1 bg-cream">
         {article.coverImage?.url ? (
-          <header className="relative flex min-h-[70vh] items-end overflow-hidden">
+          <header className="relative flex min-h-svh items-end overflow-hidden">
             <HeroSlideshow
               images={heroImages}
               altFallback={article.title}

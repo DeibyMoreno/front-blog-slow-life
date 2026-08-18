@@ -20,7 +20,6 @@ interface BlogCardProps {
 }
 
 export function BlogCard({ article }: BlogCardProps) {
-  console.log(article);
   return (
     <article className="group">
       <Link href={`/blog/${article.slug}`} className="block">
@@ -33,7 +32,7 @@ export function BlogCard({ article }: BlogCardProps) {
               className="absolute inset-0"
             >
               <Image
-                src={article.coverImage.url.replace("https:/", "")}
+                src={article.coverImage.url}
                 alt={article.coverImage.alt ?? article.title}
                 fill
                 sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"

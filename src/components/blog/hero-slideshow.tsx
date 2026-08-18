@@ -58,7 +58,7 @@ export function HeroSlideshow({ images, altFallback }: HeroSlideshowProps) {
   if (count === 1) {
     return (
       <Image
-        src={images[0].url.replace("https:/", "")}
+        src={images[0].url}
         alt={images[0].alt ?? altFallback}
         fill
         priority
@@ -84,7 +84,7 @@ export function HeroSlideshow({ images, altFallback }: HeroSlideshowProps) {
       {images.map((image, i) => (
         <Image
           key={`${image.url}-${i}`}
-          src={image.url.replace("https:/", "")}
+          src={image.url}
           alt={image.alt ?? altFallback}
           fill
           priority={i === 0}

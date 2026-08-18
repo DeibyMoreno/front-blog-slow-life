@@ -1,8 +1,28 @@
 import Link from "next/link";
 
 import { Logo } from "@/components/site/logo";
+import {
+  InstagramStrokeIcon,
+  WhatsAppStrokeIcon,
+} from "@/components/site/social-icons";
 import { Separator } from "@/components/ui/separator";
+import { siteSocial } from "@/config/site";
 import { cn } from "@/lib/utils";
+
+const socials = [
+  {
+    label: "Instagram",
+    ariaLabel: "Seguir a Slow Life en Instagram",
+    href: siteSocial.instagram.url,
+    icon: InstagramStrokeIcon,
+  },
+  {
+    label: "WhatsApp",
+    ariaLabel: "Escribir a Slow Life por WhatsApp",
+    href: siteSocial.whatsapp.url,
+    icon: WhatsAppStrokeIcon,
+  },
+];
 
 const columns = [
   {
@@ -80,7 +100,7 @@ export function SiteFooter({ tone = "light" }: SiteFooterProps) {
 
         <div
           className={cn(
-            "flex flex-col gap-3 text-xs sm:flex-row sm:items-center sm:justify-between",
+            "flex flex-col gap-4 text-xs sm:flex-row sm:items-center sm:justify-between",
             muted
           )}
         >
@@ -88,6 +108,27 @@ export function SiteFooter({ tone = "light" }: SiteFooterProps) {
             © {new Date().getFullYear()} Slow Life. Todos los derechos
             reservados.
           </p>
+
+          <div className="flex items-center gap-2">
+            {socials.map(({ label, ariaLabel, href, icon: Icon }) => (
+              <Link
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={ariaLabel}
+                className={cn(
+                  "flex size-9 items-center justify-center rounded-full border transition-colors focus-visible:ring-3 focus-visible:ring-ring/50",
+                  dark
+                    ? "border-white/10 text-cream/60 hover:border-sage/60 hover:text-cream"
+                    : "border-linen/70 text-stone hover:border-sage hover:text-forest"
+                )}
+              >
+                <Icon className="size-5" />
+              </Link>
+            ))}
+          </div>
+
           <p className="italic">Hecho con calma.</p>
         </div>
       </div>

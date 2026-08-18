@@ -14,6 +14,7 @@ const navItems = [
   { label: "Inicio", href: "/" },
   { label: "Blog", href: "/blog" },
   { label: "Nosotros", href: "/nosotros" },
+  { label: "Contacto", href: "/contacto" },
 ];
 
 interface SiteHeaderProps {

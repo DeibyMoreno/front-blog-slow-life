@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Fraunces, Manrope } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
+import { FloatingSocial } from "@/components/site/floating-social";
 
 const fraunces = Fraunces({
   variable: "--font-editorial",
@@ -48,6 +49,7 @@ export default function RootLayout({
     <html lang="es" className={`${fraunces.variable} ${manrope.variable}`}>
       <body className="flex min-h-svh flex-col">
         <Providers>{children}</Providers>
+        <FloatingSocial />
       </body>
     </html>
   );

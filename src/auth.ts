@@ -5,6 +5,8 @@ import { authenticate, type AuthenticatedUser } from "@/lib/auth/authenticate";
 
 const authSecret = process.env.AUTH_SECRET ?? process.env.NEXTAUTH_SECRET;
 
+console.log({ authSecret });
+
 if (!authSecret) {
   throw new Error(
     "AUTH_SECRET no está definida. Defínela en las variables de entorno de Amplify (genera una con `openssl rand -base64 32`)."

@@ -5,6 +5,7 @@ import { authenticate, type AuthenticatedUser } from "@/lib/auth/authenticate";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   session: { strategy: "jwt" },
+  trustHost: true,
   pages: {
     signIn: "/login",
   },

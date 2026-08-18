@@ -1,7 +1,7 @@
 import "server-only";
 
 import { LoginDocument } from "@/gql/graphql";
-import { getClient } from "@/lib/apollo/server";
+import { createAuthClient } from "@/lib/apollo/auth-client";
 
 export interface AuthenticatedUser {
   id: string;
@@ -23,7 +23,8 @@ export async function authenticate(
   password: string
 ): Promise<AuthenticatedUser | null> {
   try {
-    const { data } = await getClient().mutate({
+    const client = createAuthClient();
+    const { data } = await client.mutate({
       mutation: LoginDocument,
       variables: { input: { email, password } },
       fetchPolicy: "no-cache",

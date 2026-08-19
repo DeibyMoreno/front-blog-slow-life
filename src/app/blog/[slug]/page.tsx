@@ -166,22 +166,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
         {heroImages && heroImages.length > 0 ? (
           <PhotoStrip
-            images={[{
-              url: "/images/p-1-1.webp"
-            },
-            {
-              url: "/images/p-1-2.webp"
-            }, {
-              url: "/images/p-1-1.webp"
-            },
-            {
-              url: "/images/p-1-2.webp"
-            }, {
-              url: "/images/p-1-1.webp"
-            },
-            {
-              url: "/images/p-1-2.webp"
-            }]}
+            images={heroImages}
             altFallback={article.title}
           />
         ) : null}

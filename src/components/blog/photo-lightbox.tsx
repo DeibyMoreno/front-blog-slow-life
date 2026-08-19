@@ -69,7 +69,7 @@ export function PhotoLightbox({
             </DialogPrimitive.Close>
           </div>
 
-          <div className="relative min-h-0 flex-1 px-4 motion-safe:data-open:animate-in motion-safe:data-open:fade-in-0 motion-safe:data-open:zoom-in-95 sm:px-10">
+          <div className="relative min-h-0 flex-1 mb-10 motion-safe:data-open:animate-in motion-safe:data-open:fade-in-0 motion-safe:data-open:zoom-in-95 sm:px-10">
             {image ? (
               <Image
                 src={image.url}
@@ -119,7 +119,7 @@ export function PhotoLightbox({
           ) : null}
 
           {count > 1 ? (
-            <div className="relative z-10 p-6 sm:p-8">
+            <div className="relative z-10 pb-6 sm:pb-8">
               <div className="mx-auto flex max-w-full gap-2 overflow-x-auto pb-1 sm:flex-wrap sm:justify-center sm:overflow-visible">
                 {images.map((thumb, i) => (
                   <button

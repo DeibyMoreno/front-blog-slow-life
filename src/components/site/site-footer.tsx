@@ -68,8 +68,7 @@ export function SiteFooter({ tone = "light" }: SiteFooterProps) {
           <div className="max-w-sm space-y-4">
             <Logo className={dark ? "text-cream" : undefined} />
             <p className={cn("text-sm leading-relaxed", muted)}>
-              Un diario sobre moda lenta, materiales con criterio y un vestir
-              más consciente.
+              Un diario para vivir a tu propio ritmo.
             </p>
           </div>
 

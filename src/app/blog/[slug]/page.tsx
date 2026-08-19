@@ -165,9 +165,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           </header>
         )}
 
-        {article.gallery && article.gallery.length > 0 ? (
+        {heroImages && heroImages.length > 0 ? (
           <PhotoStrip
-            images={article.gallery}
+            images={heroImages}
             altFallback={article.title}
           />
         ) : null}

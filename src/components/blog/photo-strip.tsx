@@ -1,7 +1,11 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 
 import type { ImageRef } from "@/lib/blog/types";
 import { Reveal, MOTION_STAGGER_S } from "@/components/ui/reveal";
+import { PhotoLightbox } from "@/components/blog/photo-lightbox";
 
 interface PhotoStripProps {
   images: ImageRef[];
@@ -9,6 +13,8 @@ interface PhotoStripProps {
 }
 
 export function PhotoStrip({ images, altFallback }: PhotoStripProps) {
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
   if (images.length === 0) return null;
 
   return (
@@ -28,18 +34,34 @@ export function PhotoStrip({ images, altFallback }: PhotoStripProps) {
             delay={MOTION_STAGGER_S * i}
             amount={0.5}
           >
-            <div className="relative aspect-4/3 w-40 shrink-0 overflow-hidden rounded-lg border border-linen bg-sand sm:w-44">
+            <button
+              type="button"
+              onClick={() => setLightboxIndex(i)}
+              aria-label={`Ver ${image.alt ?? altFallback} en pantalla completa`}
+              className="relative block aspect-4/3 w-40 shrink-0 cursor-zoom-in overflow-hidden rounded-lg border border-linen bg-sand text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terra sm:w-44"
+            >
               <Image
                 src={image.url}
                 alt={image.alt ?? altFallback}
                 fill
                 sizes="(min-width: 640px) 176px, 160px"
-                className="object-cover"
+                className="object-cover transition-transform duration-500 hover:scale-[1.05]"
               />
-            </div>
+            </button>
           </Reveal>
         ))}
       </div>
+
+      {lightboxIndex !== null ? (
+        <PhotoLightbox
+          images={images}
+          altFallback={altFallback}
+          open
+          index={lightboxIndex}
+          onIndexChange={setLightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+        />
+      ) : null}
     </section>
   );
 }

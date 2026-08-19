@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     template: "%s · Slow Life",
   },
   description:
-    "Un diario sobre moda lenta, materiales naturales y un vestir con intención. Ensayos, guías y crónicas de Slow Life.",
+    "Un diario para vivir a tu propio ritmo. Ensayos, guías y crónicas de Slow Life.",
   openGraph: {
     type: "website",
     locale: "es_ES",

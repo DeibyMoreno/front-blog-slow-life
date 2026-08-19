@@ -10,7 +10,6 @@ import { SectionHeading } from "@/components/blog/article-grid";
 import { BlogCard } from "@/components/blog/blog-card";
 import { HeroSlideshow } from "@/components/blog/hero-slideshow";
 import { PhotoStrip } from "@/components/blog/photo-strip";
-import { WaveDivider } from "@/components/site/wave-divider";
 import { Reveal, MOTION_STAGGER_S } from "@/components/ui/reveal";
 import { getArticleBySlug, getArticles } from "@/lib/blog/api";
 // import { getDummyArticleBySlug } from "@/lib/blog/dummy-data";
@@ -167,17 +166,29 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
         {heroImages && heroImages.length > 0 ? (
           <PhotoStrip
-            images={heroImages}
+            images={[{
+              url: "/images/p-1-1.webp"
+            },
+            {
+              url: "/images/p-1-2.webp"
+            }, {
+              url: "/images/p-1-1.webp"
+            },
+            {
+              url: "/images/p-1-2.webp"
+            }, {
+              url: "/images/p-1-1.webp"
+            },
+            {
+              url: "/images/p-1-2.webp"
+            }]}
             altFallback={article.title}
           />
         ) : null}
 
         <div className="mx-auto w-full max-w-2xl px-5 py-16 sm:px-8 sm:py-20">
-          <div className="flex justify-center">
-            <WaveDivider className="text-terra" />
-          </div>
 
-          <div className="mt-12">
+          <div>
             {article.body ? (
               <ArticleBody content={article.body} />
             ) : (

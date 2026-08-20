@@ -2,8 +2,6 @@ import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { ArticleGrid, SectionHeading } from "@/components/blog/article-grid";
 import { getArticles } from "@/lib/blog/api";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { BlogCard } from "@/components/blog/blog-card";
 import { FeaturedStory } from "@/components/blog/featured-story";
 import { BlogMarquee } from "@/components/blog/blog-marquee";
@@ -24,7 +22,7 @@ export default async function HomePage() {
       <main className="flex-1">
         <section
           className="relative border-b border-linen/60 bg-cover bg-center bg-fixed max-md:bg-scroll"
-          style={{ backgroundImage: "url(/banner2.jpg)" }}
+          style={{ backgroundImage: "url(/banner/banner2.webp)" }}
         >
           <div
             aria-hidden="true"
@@ -61,7 +59,7 @@ export default async function HomePage() {
           </section>
         ) : null}
 
-        <section className="border-t border-linen bg-sand">
+        {/*<section className="border-t border-linen bg-sand">
           <Reveal className="mx-auto flex max-w-6xl flex-col items-center gap-8 px-5 py-20 text-center sm:px-8">
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-terra">
               La carta lenta
@@ -81,7 +79,7 @@ export default async function HomePage() {
               Unirme a la carta
             </Button>
           </Reveal>
-        </section>
+        </section>*/}
       </main>
 
       <SiteFooter />

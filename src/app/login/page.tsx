@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function LoginPage() {
   return (
     <main className="flex min-h-svh flex-col items-center justify-center px-5 bg-cover bg-center bg-fixed text-ink"
-      style={{ backgroundImage: "url(/login.jpg)" }}
+      style={{ backgroundImage: "url(/banner/login.webp)" }}
     >
       <div className="w-full max-w-sm">
         <Card className="bg-cream">

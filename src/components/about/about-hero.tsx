@@ -6,7 +6,7 @@ export function AboutHero() {
       <div
         aria-hidden
         className="absolute inset-0 bg-cover bg-center bg-fixed"
-        style={{ backgroundImage: "url(/login2.jpg)" }}
+        style={{ backgroundImage: "url(/banner/login2.webp)" }}
       />
       <div
         aria-hidden

@@ -6,11 +6,6 @@ import { AboutHero } from "@/components/about/about-hero";
 import { AboutManifesto } from "@/components/about/about-manifesto";
 import { AboutMaxims } from "@/components/about/about-maxims";
 import { AboutPrinciples } from "@/components/about/about-principles";
-import { AboutPillars } from "@/components/about/about-pillars";
-import { AboutHistory } from "@/components/about/about-history";
-import { AboutStats } from "@/components/about/about-stats";
-import { AboutTeam } from "@/components/about/about-team";
-import { AboutCta } from "@/components/about/about-cta";
 
 export const metadata: Metadata = {
   title: "Nosotros",
@@ -28,11 +23,11 @@ export default function NosotrosPage() {
         <AboutManifesto />
         <AboutMaxims />
         <AboutPrinciples />
-        <AboutPillars />
-        <AboutHistory />
-        <AboutStats />
+        {/*<AboutPillars />*/}
+        {/*<AboutHistory />*/}
+        {/*<AboutStats />
         <AboutTeam />
-        <AboutCta />
+        <AboutCta />*/}
       </main>
 
       <SiteFooter />
